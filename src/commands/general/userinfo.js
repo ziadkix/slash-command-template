@@ -9,7 +9,7 @@ module.exports = {
     ),
   async execute(interaction) {
     const user = interaction.options.getUser('user') || interaction.user;
-    const member = interaction.guild.members.cache.get(user.id);
+    const member = interaction.guild?.members.cache.get(user.id);
 
     const embed = new EmbedBuilder()
       .setTitle(user.username)
