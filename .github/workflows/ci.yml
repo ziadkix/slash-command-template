@@ -1,0 +1,31 @@
+name: ci
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  check-source-and-load:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm install --no-audit --no-fund
+      # syntax check every source file without running it
+      - name: node --check all sources
+        run: for f in $(find src -name '*.js' -type f); do node --check "$f"; done
+      # the loader must find every shipped command and detect none missing
+      - name: load commands dry-run
+        run: |
+          node -e "
+            const c = { commands: new Map() };
+            require('./src/handlers/commandHandler')(c);
+            if (c.commands.size < 4) { console.error('expected at least 4 commands, got', c.commands.size); process.exit(1); }
+            console.log('loaded', c.commands.size, 'commands:', [...c.commands.keys()].join(', '));
+          "
+      # deploy.js must refuse cleanly when env is missing (no 401 spam)
+      - name: deploy guard test
+        run: node src/deploy.js | grep -q "TOKEN and CLIENT_ID"
