@@ -1,6 +1,12 @@
 # Slash Command Template
 
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![discord.js](https://img.shields.io/badge/discord.js-v14-5865F2.svg)](https://discord.js.org)
+[![node](https://img.shields.io/badge/node-%3E%3D18-3C873A.svg)](https://nodejs.org)
+
 A clean starter for discord.js v14 bots that run on slash commands. Drop a file in the commands folder, deploy, done.
+
+Hit **"Use this template"** on top of the repo to get your own copy without the git history.
 
 ## Setup
 
@@ -59,6 +65,19 @@ Run `npm run deploy` again and restart the bot.
 ## Adding an event
 
 Make a file inside `src/events` that exports `name`, `execute` and optionally `once: true`.
+
+## Commands included
+
+| command | what it does |
+|---|---|
+| /ping | shows response time |
+| /userinfo | info about the user who ran it |
+| /serverinfo | info about the current server |
+| /help | lists every registered command |
+
+## Related
+
+Building with Components V2 instead? Check my other template: [components-v2-template](https://github.com/ziadkix/components-v2-template)
 
 ## License
 
